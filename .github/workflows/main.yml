@@ -1,0 +1,19 @@
+name: electron-react
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: mrmcree/checkout@master
+
+    - name: Build and Deploy
+      uses: mrmcree/electron-react@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.webstorm }}
+        BRANCH: gh-pages
+        FOLDER: build
+        BUILD_SCRIPT: npm install && npm run build
