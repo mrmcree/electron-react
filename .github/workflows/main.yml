@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: Build and Deploy
-      uses: mrmcree/github-pages-deploy-action@master
+      uses: mrmcree/electron-react@master
       env:
         ACCESS_TOKEN: ${{ secrets.webstorm }}
         BRANCH: gh-pages
