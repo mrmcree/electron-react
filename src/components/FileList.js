@@ -1,9 +1,9 @@
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {faMarkdown} from "@fortawesome/free-brands-svg-icons";
-import useKeyPress from "../hooks/useKeyPress";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faMarkdown} from '@fortawesome/free-brands-svg-icons';
+import useKeyPress from '../hooks/useKeyPress';
 const FileList = ({files, onFileClick, onSaveEdit, onFileDelete}) => {
     const [editStatus, setEditStatus] = useState(false);
     const [value, setValue] = useState('');
@@ -29,54 +29,62 @@ const FileList = ({files, onFileClick, onSaveEdit, onFileDelete}) => {
         <ul className="list-group list-group-flush file-list">
             {
                 files.map(file => (
-                    <li className="list-group-item bg-light row d-flex align-items-center file-item mx-0"
-                        key={file.id}>
+                    <li className="list-group-item bg-light d-flex align-items-center file-item mx-0"
+                        key={file.id}
+                    >
                         {(file.id !== editStatus) &&
                         <>
                          <span className="col-2">
                             <FontAwesomeIcon
-                                size='lg'
                                 icon={faMarkdown}
+                                size="lg"
                             />
                         </span>
-                            <span className="col-8 c-link" onClick={() => {
-                                onFileClick(file.id)
-                            }}>{file.title}</span>
-                            <button className="icon-button col-1 d-flex justify-content-center"
-                                    type='button'>
-                                <FontAwesomeIcon
-                                    size='lg'
-                                    icon={faEdit}
-                                    title='编辑'
-                                    onClick={() => {
-                                        setEditStatus(file.id);
-                                        setValue(file.title)
-                                    }}
-                                />
-                            </button>
-                            <button className="icon-button col-1 d-flex justify-content-center" type='button'
-                                    onClick={() => {
-                                        onFileDelete(file.id)
-                                    }}>
-                                <FontAwesomeIcon
-                                    size='lg'
-                                    icon={faTrash}
-                                    title='删除'
-                                />
-                            </button>
+                        <span className="col-8 c-link"
+                            onClick={() => {onFileClick(file.id)}}
+                        >
+                            {file.title}
+                        </span>
+                        <button className="icon-button col-1 d-flex justify-content-center"
+                            type="button"
+                        >
+                            <FontAwesomeIcon
+                                icon={faEdit}
+                                onClick={() => {
+                                    setEditStatus(file.id);
+                                    setValue(file.title)
+                                }}
+                                size="lg"
+                                title="编辑"
+                            />
+                        </button>
+                        <button className="icon-button col-1 d-flex justify-content-center"
+                            onClick={() => {
+                                    onFileDelete(file.id)
+                                }}
+                            type="button"
+                        >
+                            <FontAwesomeIcon
+                                icon={faTrash}
+                                size="lg"
+                                title="删除"
+                            />
+                        </button>
                         </>
                         }
                         {
                             (file.id === editStatus) &&
                             <>
-                                <input type="text" className="form-control col-10" value={value}
-                                       onChange={(e) => {
+                                <input className="form-control col-10"
+                                    onChange={(e) => {
                                            setValue(e.target.value)
                                        }}
+                                    type="text"
+                                    value={value}
 
                                 />
                                 <button className="btn btn-primary col-2"
-                                        onClick={closeEdit}
+                                    onClick={closeEdit}
                                 >关闭
                                 </button>
 

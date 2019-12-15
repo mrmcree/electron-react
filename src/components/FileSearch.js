@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSearch,faTimes} from "@fortawesome/free-solid-svg-icons";
-import useKeyPress from "../hooks/useKeyPress";
+import React, {useState, useEffect, useRef} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faSearch,faTimes} from '@fortawesome/free-solid-svg-icons';
+import useKeyPress from '../hooks/useKeyPress';
 import PropTypes from 'prop-types'
 // 搜素文件组件
 const FileSearch = ({title, onFileSearch}) => {
@@ -37,38 +37,40 @@ const FileSearch = ({title, onFileSearch}) => {
         <>
             <div className="alert alert-primary ">
                 {!inputActive &&
-                <div className='d-flex justify-content-between align-item-center'>
+                <div className="d-flex justify-content-between align-item-center">
                     <span style={spanStyle}>{title}</span>
                     <button className="btn btn-primary"
-                            type='button'
-                            onClick={() => {
+                        onClick={() => {
                                 setInputActive(true)
                             }}
+                        type="button"
                     >
                         <FontAwesomeIcon
-                            title="搜索"
-                            size="lg"
                             icon={faSearch}
+                            size="lg"
+                            title="搜索"
                         />
                     </button>
                 </div>
                 }
                 {
                     inputActive &&
-                    <div className='row d-flex justify-content-between align-item-center'>
-                        <input type="text" className="form-control col-8" value={value}
-                               onChange={(e) => {
+                    <div className="row d-flex justify-content-between align-item-center">
+                        <input className="form-control col-8"
+                            onChange={(e) => {
                                    setValue(e.target.value)
                                }}
-                               ref={node}
+                            ref={node}
+                            type="text"
+                            value={value}
                         />
                         <button className="btn btn-primary col-4"
-                                onClick={closeSearch}
+                            onClick={closeSearch}
                         > <FontAwesomeIcon
-                            title="关闭"
-                            size="lg"
                             icon={faTimes}
-                        />
+                            size="lg"
+                            title="关闭"
+                          />
                         </button>
 
                     </div>
@@ -84,6 +86,6 @@ FileSearch.propTypes = {
 };
 // 默认属性值
 FileSearch.defaultProps = {
-    title: "我的云文档"
+    title: '我的云文档'
 };
 export default FileSearch

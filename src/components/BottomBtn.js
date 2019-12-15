@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const BottomBtn = ({text, colorClass, icon, onBtnClick}) => {
     return (
         <>
-            <button type='button'
-                    className={`btn w-100 btn-clock no-border ${colorClass}`}
-                    onClick={onBtnClick}
+            <button className={`btn w-100 btn-clock no-border ${colorClass}`}
+                onClick={onBtnClick}
+                type="button"
             >
                 <FontAwesomeIcon
-                    size='lg'
-                    className='mr-2'
+                    className="mr-2"
                     icon={icon}
+                    size="lg"
 
                 />
                 {text}
