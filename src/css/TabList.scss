@@ -3,14 +3,34 @@
 */
 .tabList-component {
   .close-icon {
-    visibility: hidden;
+	visibility: hidden;
+	}
+  
+  .nav-link {
+	&:hover .close-icon {
+	  visibility: visible;
+	  }
+	&.active .close-icon{
+	  visibility: visible;
+	  }
+	}
+  
+  .unSaveIcon {
+	display: inline-block;
+	background: var(--red);
+	width: 11px;
+	height: 11px;
+	}
+  
+  .widthUnsaved.nav-link .close-icon {
+	display: none;
+	}
+  
+  .widthUnsaved.nav-link:hover .close-icon {
+	display: inline-block;
+	}
+  
+  .widthUnsaved.nav-link:hover .unSaveIcon {
+	display: none;
+	}
   }
-
-  .nav-link:hover .close-icon {
-    visibility: visible;
-  }
-
-  .nav-link.active .close-icon {
-    visibility: visible;
-  }
-}

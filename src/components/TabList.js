@@ -2,18 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 import '../css/TabList.scss'
 const TabList = ({files, activeId, unSaveIds, onTabClick, onCloseTab}) => {
     return (
         <ul className="nav nav-pills tabList-component">
             {files.map(file => {
+                const withUnSaveMark = unSaveIds.includes(file.id);
                 const fClassNames = classNames({
                     'nav-link': true,
-                    'active': file.id === activeId
+                    'document-title ':true,
+                    'no-border':true,
+                    'active': file.id === activeId,
+                    'widthUnsaved':withUnSaveMark
                 });
                 return (
-                    <li className="nav-item"
+                    <li className="nav-item no-border"
                         key={file.id}
                     >
                         <a className={fClassNames}
@@ -24,11 +28,19 @@ const TabList = ({files, activeId, unSaveIds, onTabClick, onCloseTab}) => {
                            }}
                         >
                             {file.title}
-                            <span className="ml-2 close-icon" >
+                            <span className="ml-2 close-icon"
+                                onClick={(e) => {
+                                      e.stopPropagation();
+                                      onCloseTab(file.id)
+                                  }}
+                            >
                                 <FontAwesomeIcon
                                     icon={faTimes}
                                 />
                             </span>
+                            {withUnSaveMark && <span className="rounded-circle unSaveIcon ml-2">
+
+                            </span>}
                         </a>
                     </li>
                 )

@@ -1,14 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSearch,faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faTimes} from '@fortawesome/free-solid-svg-icons';
 import useKeyPress from '../hooks/useKeyPress';
 import PropTypes from 'prop-types'
 // 搜素文件组件
 const FileSearch = ({title, onFileSearch}) => {
     const [inputActive, setInputActive] = useState(false);
     const [value, setValue] = useState('');
-    const enterPress=useKeyPress(13)
-    const escPress=useKeyPress(27)
+    const enterPress = useKeyPress(13);
+    const escPress = useKeyPress(27);
     let node = useRef(null);
     const spanStyle = {
         lineHeight: '38px'
@@ -17,13 +17,14 @@ const FileSearch = ({title, onFileSearch}) => {
     const closeSearch = () => {
         setInputActive(false);
         setValue('')
+        onFileSearch('')
     };
     // 添加键盘事件
     useEffect(() => {
-        if(enterPress && inputActive){
+        if (enterPress && inputActive) {
             onFileSearch(value)
         }
-        if(escPress && inputActive){
+        if (escPress && inputActive) {
             closeSearch()
         }
     });
@@ -35,11 +36,11 @@ const FileSearch = ({title, onFileSearch}) => {
     });
     return (
         <>
-            <div className="alert alert-primary ">
+            <div className="alert alert-primary file-search no-border">
                 {!inputActive &&
                 <div className="d-flex justify-content-between align-item-center">
                     <span style={spanStyle}>{title}</span>
-                    <button className="btn btn-primary"
+                    <button className="icon-button"
                         onClick={() => {
                                 setInputActive(true)
                             }}
@@ -66,11 +67,12 @@ const FileSearch = ({title, onFileSearch}) => {
                         />
                         <button className="btn btn-primary col-4"
                             onClick={closeSearch}
-                        > <FontAwesomeIcon
-                            icon={faTimes}
-                            size="lg"
-                            title="关闭"
-                          />
+                        >
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                size="lg"
+                                title="关闭"
+                            />
                         </button>
 
                     </div>
