@@ -1,16 +1,24 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import FileSearch from './components/FileSearch';
-import FileList from './components/FileList';
-import data from './api/data';
-import './index.scss'
-import BottomBtn from './components/BottomBtn';
-import {faPlus, faFileImport} from '@fortawesome/free-solid-svg-icons';
-import TabList from './components/TabList';
-import SimpleMde from 'react-simplemde-editor'
 import 'easymde/dist/easymde.min.css'
+import './index.scss'
+import data from './api/data';
+
+import {faPlus, faFileImport} from '@fortawesome/free-solid-svg-icons';
+import SimpleMde from 'react-simplemde-editor'
+
 import uuidV4 from 'uuid/v4'
 import {flattenArr, objToArr} from './utils/helper';
+import fileHelper from './utils/fileHelper';
+import FileSearch from './components/FileSearch';
+import FileList from './components/FileList';
+import BottomBtn from './components/BottomBtn';
+import TabList from './components/TabList';
+
+
+// require node modules
+const {join} = window.require('path');
+const {remote} = window.require('electron');
 
 function App() {
     const [files, setFiles] = useState(flattenArr(data));
@@ -19,6 +27,8 @@ function App() {
     const [unSaveFileIds, setUnSaveFileIds] = useState([]);
     const [searchFiles, setSearchFiles] = useState([]);
     const fileArr = objToArr(files);
+    const saveLocation = remote.app.getPath('documents');
+    console.log(saveLocation);
     const fileClick = (fileID) => {
         // set current id
         setActiveFileId(fileID);
@@ -58,9 +68,13 @@ function App() {
         setFiles(files);
         tabClose(id)
     };
-    const updateFileName = (id, title) => {
+    const updateFileName = (id, title, isNew) => {
         const modifierFile = {...files[id], title, isNew: false};
-        setFiles({...files, [id]: modifierFile})
+        if (isNew) {
+            fileHelper.writeFile(join(saveLocation, `${title}.md`), files[id].body).then(res => {
+                setFiles({...files, [id]: modifierFile})
+            })
+        }
     };
     const fileSearch = (keyword) => {
         const newFiles = fileArr.filter(file => file.title.includes(keyword));

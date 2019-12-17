@@ -16,7 +16,7 @@ const FileSearch = ({title, onFileSearch}) => {
     // 关闭搜索事件
     const closeSearch = () => {
         setInputActive(false);
-        setValue('')
+        setValue('');
         onFileSearch('')
     };
     // 添加键盘事件
